@@ -58307,7 +58307,7 @@ A.xg.prototype={
 hE(){var s=0,r=A.a4(t.z),q=this,p,o,n,m,l,k
 var $async$hE=A.a5(function(a,b){if(a===1)return A.a1(b,r)
 while(true)switch(s){case 0:l=t.N
-k=A.adG("http","www.martinnn.com:24080","translate",A.aw(["source_lang","en","target_lang","bem","text",J.cr(q.d.a.a)],l,t.z))
+k=A.adG("http","185.141.61.143:24080","translate",A.aw(["source_lang","en","target_lang","bem","text",J.cr(q.d.a.a)],l,t.z))
 A.i5(k)
 s=2
 return A.a0(A.af1(k),$async$hE)
