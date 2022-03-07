@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_button/flutter_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'dart:io';
 
 class MyMobileBody extends StatefulWidget {
   const MyMobileBody({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _MyMobileBody extends State<MyMobileBody> {
 
   getText() async {
     final url = Uri.http(
-      'www.martinnn.com:24080',
+      '185.141.61.143:24080',
       'translate',
       {
         'source_lang': 'en',
@@ -29,6 +30,15 @@ class _MyMobileBody extends State<MyMobileBody> {
     );
     print(url);
     final response = await http.get(url);
+
+    // var request = await HttpClient().getUrl(Uri.parse(
+    //     'http://www.martinnn.com:24080/translate?source_lang=en&target_lang=bem&text=trying'));
+    // // sends the request
+    // var responses = await request.close();
+
+    // await for (var contents in responses.transform(convert.Utf8Decoder())) {
+    //   print(contents);
+    // }
 
     String output = '';
 

@@ -19,7 +19,7 @@ class _MyDesktopBody extends State<MyDesktopBody> {
 
   getText() async {
     final url = Uri.http(
-      'www.martinnn.com:24080',
+      '185.141.61.143:24080',
       'translate',
       {
         'source_lang': 'en',
