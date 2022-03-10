@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_button/flutter_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:dio/dio.dart';
 
 class MyDesktopBody extends StatefulWidget {
   const MyDesktopBody({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _MyDesktopBody extends State<MyDesktopBody> {
 
   getText() async {
     final url = Uri.http(
-      '185.141.61.143:24080',
+      'www.meatbagwrites.com:24080',
       'translate',
       {
         'source_lang': 'en',
@@ -27,9 +28,17 @@ class _MyDesktopBody extends State<MyDesktopBody> {
         'text': textInput.text.toString()
       },
     );
-    final response = await http.get(url);
+    var response;
+    print(url.toString());
+    try {
+      response = await Dio().get(url.toString());
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+    //final response = await http.get(url);
     if (response.statusCode == 200) {
-      final jsonResponse = convert.jsonDecode(response.body);
+      final jsonResponse = convert.jsonDecode(response.toString());
       List<String> list = List<String>.from(jsonResponse['translated'] as List);
       result = list.join();
     } else {
