@@ -20,7 +20,7 @@ class _MyMobileBody extends State<MyMobileBody> {
 
   getText() async {
     final url = Uri.http(
-      '185.141.61.143:24080',
+      'martinnn.com:25080',
       'translate',
       {
         'source_lang': 'en',
@@ -64,7 +64,7 @@ class _MyMobileBody extends State<MyMobileBody> {
           title: Text(
             'BembaBox',
             style:
-                GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 50),
+                GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 40),
           ),
         ),
         body: Padding(

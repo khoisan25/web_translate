@@ -20,7 +20,7 @@ class _MyDesktopBody extends State<MyDesktopBody> {
 
   getText() async {
     final url = Uri.http(
-      'www.meatbagwrites.com:24080',
+      'martinnn.com:25080',
       'translate',
       {
         'source_lang': 'en',
@@ -55,7 +55,7 @@ class _MyDesktopBody extends State<MyDesktopBody> {
         backgroundColor: Color(0xFF001845),
         title: Text(
           'BembaBox',
-          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 40),
+          style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 60),
         ),
       ),
       body: Padding(
@@ -143,7 +143,7 @@ class _MyDesktopBody extends State<MyDesktopBody> {
                     height: 50,
                     width: 200,
                     onPressed: getText,
-                    child: const Text("3d Button"),
+                    child: const Text("Translate"),
                   ),
                 ],
               ))),
