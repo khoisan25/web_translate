@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -7,6 +9,7 @@ import 'package:flutter_button/flutter_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:dio/dio.dart';
+import 'package:dcache/dcache.dart';
 
 class MyDesktopBody extends StatefulWidget {
   const MyDesktopBody({Key? key}) : super(key: key);
@@ -15,10 +18,34 @@ class MyDesktopBody extends StatefulWidget {
 }
 
 class _MyDesktopBody extends State<MyDesktopBody> {
+  final bool enableListening = true;
+  Cache cache = SimpleCache(storage: InMemoryStorage(3000));
   final textInput = TextEditingController();
+
+  final RegExp _regex = RegExp(r'[a-zA-Z]');
+
+  void checkText() {
+    if (textInput.text.isNotEmpty) {
+      final lastChar = textInput.text.substring(textInput.text.length - 1);
+      bool isMatch = _regex.hasMatch(lastChar);
+      if (!isMatch) {
+        if (cache.get(textInput.text.trim()) != null) {
+          result = cache.get(textInput.text.trim());
+          setState(() {});
+        } else {
+          getText();
+        }
+      }
+    }
+  }
+
   String result = '';
+  bool awaitingResponse = false;
 
   getText() async {
+    result = result + '...';
+    awaitingResponse = true;
+    setState(() {});
     final url = Uri.http(
       'martinnn.com:25080',
       'translate',
@@ -29,10 +56,8 @@ class _MyDesktopBody extends State<MyDesktopBody> {
       },
     );
     var response;
-    print(url.toString());
     try {
       response = await Dio().get(url.toString());
-      print(response);
     } catch (e) {
       print(e);
     }
@@ -44,6 +69,8 @@ class _MyDesktopBody extends State<MyDesktopBody> {
     } else {
       result = 'Request failed with status: ${response.statusCode}.';
     }
+    cache.set(textInput.text.trim(), result);
+    awaitingResponse = false;
     setState(() {});
   }
 
@@ -85,7 +112,9 @@ class _MyDesktopBody extends State<MyDesktopBody> {
                                       textAlign: TextAlign.center,
                                       cursorColor: Colors.white,
                                       controller: textInput,
-                                      minLines: null,
+                                      onChanged: (text) {
+                                        checkText();
+                                      },
                                       maxLines: null,
                                       expands: true,
                                       autocorrect: true,
@@ -125,8 +154,14 @@ class _MyDesktopBody extends State<MyDesktopBody> {
                                         child: Text(
                                           result,
                                           style: GoogleFonts.roboto(
-                                              color: Colors.white,
-                                              fontSize: 20),
+                                              color: awaitingResponse
+                                                  ? Color.fromARGB(
+                                                      255, 206, 212, 218)
+                                                  : Colors.white,
+                                              fontSize: 20,
+                                              fontStyle: awaitingResponse
+                                                  ? FontStyle.italic
+                                                  : FontStyle.normal),
                                           textAlign: TextAlign.center,
                                         )),
                                   ),
