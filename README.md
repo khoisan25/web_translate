@@ -1,7 +1,9 @@
 ## UI files for web translate
 Code repo for flutter based translation UI.
 
-Currently hosted on https://meatbagwrites.com | https://translate.martinnn.com
+NOTE: Currently deprecated.
+~~Currently hosted on https://meatbagwrites.com | https://translate.martinnn.com~~
+
 
 Developed as per request from a friend and so only supports **eng** -> **bem** translation.
 
